@@ -32,8 +32,8 @@ export default [{
         path: '',
         name: 'doc',
         meta: {
-            title: '文档',
-            href: 'https://docs.huizanlian.com/guide/',
+            title: '外部链接',
+            href: 'https://www.baidu.com',
             icon: 'ios-book'
         }
     },
@@ -153,6 +153,37 @@ export default [{
             },
             component:()=>import('@/views/argu/Query.vue')
         }]
+    },
+    {
+        path: '/manage',
+        name: 'manage',
+        redirect: '/manage/list',
+        meta: {
+            showAlways: true,
+            title: '管理',
+            icon: 'ios-create-outline'
+        },
+        component: Main,
+        children: [{
+                path: 'list',
+                name: 'list',
+                meta: {
+                    hideInBread: true,
+                    title: '列表',
+                    icon: 'md-contacts'
+                },
+                component: () => import('@/views/manage/List.vue')
+            },
+            {
+                path: 'detail/:detailId',
+                name: 'detail',
+                meta: {
+                    title: '详情',
+                    hideInMenu: true
+                },
+                component: () => import('@/views/manage/Detail.vue')
+            }
+        ]
     },
     {
         path: '/401',

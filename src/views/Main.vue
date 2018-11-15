@@ -1,50 +1,54 @@
 <template>
-    <Layout class="main_layout">
-        <Sider
-            class="main_sider"
-            collapsible
-            hide-trigger
-            v-model="collapsed"
-            :width="256"
-            :collapsed-width="64"
-        >
-            <div class="main_sider_logoCon">
-                <img v-show="!collapsed" :src="maxLogo" key="max-logo">
-                <img v-show="collapsed" :src="minLogo" key="min-logo">
-            </div>
-            <side-menu
-                accordion
-                ref="sideMenu"
-                :active-name="$route.name"
-                :collapsed="collapsed"
-                @on-select="turnToPage"
-                :menu-list="menuList"
-            ></side-menu>
-        </Sider>
-        <Layout class="main_layoutCont">
-            <Header class="main_layoutCont_header">
-                <header-bar :collapsed="collapsed" @on-coll-change="handleCollapsedChange">
-                    <user :user-avator="userAvator"/>
-                </header-bar>
-            </Header>
-            <Content class="main_layoutCont_content">
-                <router-view></router-view>
-            </Content>
-            <Footer class="main_layoutCont_footer">Footer</Footer>
-        </Layout>
+  <Layout class="main_layout">
+    <Sider
+      class="main_sider"
+      collapsible
+      hide-trigger
+      v-model="collapsed"
+      :width="256"
+      :collapsed-width="64"
+    >
+      <div class="main_sider_logoCon">
+        <img v-show="!collapsed" :src="maxLogo" key="max-logo">
+        <img v-show="collapsed" :src="minLogo" key="min-logo">
+      </div>
+      <side-menu
+        accordion
+        ref="sideMenu"
+        :active-name="$route.name"
+        :collapsed="collapsed"
+        @on-select="turnToPage"
+        :menu-list="menuList"
+      ></side-menu>
+    </Sider>
+    <Layout class="main_layoutCont">
+      <Header class="main_layoutCont_header">
+        <header-bar :collapsed="collapsed" @on-coll-change="handleCollapsedChange">
+          <user :user-avator="userAvator"/>
+          <bread-crumb slot="breadCrumb" :list="breadCrumbList"></bread-crumb>
+        </header-bar>
+      </Header>
+      <Content class="main_layoutCont_content">
+        <router-view></router-view>
+      </Content>
+      <Footer class="main_layoutCont_footer">Footer</Footer>
     </Layout>
+  </Layout>
 </template>
 <script>
-import maxLogo from "@/assets/images/logo_big.svg";
-import minLogo from "@/assets/images/logo.svg";
+import maxLogo from "@/assets/images/logo_big.png";
+import minLogo from "@/assets/images/logo.png";
 import { mapMutations, mapActions, mapGetters } from "vuex";
 import SideMenu from "./main/side-menu/SideMenu";
-import HeaderBar from './main/header-bar/HeaderBar';
-import User from './main/header-bar/User'
+import HeaderBar from "./main/header-bar/HeaderBar";
+import BreadCrumb from "./main/header-bar/BreadCrumb.vue";
+import User from "./main/header-bar/User";
+import routers from "@/router/routes";
 export default {
   components: {
     SideMenu,
     HeaderBar,
+    BreadCrumb,
     User
   },
   data() {
@@ -60,9 +64,17 @@ export default {
     },
     menuList() {
       return this.$store.getters.menuList;
+    },
+    breadCrumbList() {
+      return this.$store.state.app.breadCrumbList;
     }
   },
+  mounted() {
+    this.setHomeRoute(routers);
+    this.setBreadCrumb(this.$route);
+  },
   methods: {
+    ...mapMutations(["setBreadCrumb", "setHomeRoute"]),
     turnToPage(route) {
       let { name, params, query } = {};
       if (typeof route === "string") name = route;
@@ -84,6 +96,13 @@ export default {
     handleCollapsedChange(state) {
       this.collapsed = state;
     }
+  },
+  watch: {
+    $route(newRoute) {
+      const { name, query, params, meta } = newRoute;
+      this.setBreadCrumb(newRoute);
+      this.$refs.sideMenu.updateOpenName(newRoute.name);
+    }
   }
 };
 </script>
@@ -97,13 +116,13 @@ export default {
     }
     .main_sider_logoCon {
       height: 64px;
-      padding: 10px;
-      background: #021f5d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #e9b6f3;
       img {
-        height: 44px;
-        width: auto;
-        display: block;
-        margin: 0 auto;
+        max-width: 100%;
+        max-height: 60px;
       }
     }
     .ivu-menu {

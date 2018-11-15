@@ -7,6 +7,7 @@
         >
             <Icon type="md-menu" :size="26"/>
         </a>
+        <slot name="breadCrumb"></slot>
         <div class="custom-content-con">
             <slot></slot>
         </div>
@@ -30,7 +31,9 @@ $size: 40px;
 .header-bar {
   width: 100%;
   height: 100%;
-  position: relative;
+  display: flex;
+  align-items: center;
+  // position: relative;
   .sider-trigger-a {
     padding: 6px;
     width: $size;
@@ -38,7 +41,6 @@ $size: 40px;
     display: inline-block;
     text-align: center;
     color: #5c6b77;
-    margin-top: 12px;
     i {
       transition: transform 0.2s ease;
       vertical-align: top;
@@ -49,7 +51,7 @@ $size: 40px;
     }
   }
   .custom-content-con {
-    float: right;
+    flex: 1;
     height: auto;
     padding-right: 20px;
     line-height: 64px;

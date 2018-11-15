@@ -9,10 +9,10 @@ npm run build // 打包发布到生产环境
 
 ## 背景
 ### 使用vue cli 2.x 初始化项目
-![Image text](https://github.com/hedy-6/vue-admin-templete/md-images/vue-cli2-init.png)
+![vue cli 2.x 初始化项目](https://github.com/hedy-6/vue-admin-templete/blob/master/md-images/vue-cli2-init.png)
 
 ### 使用vue cli 3.x 初始化项目
-![Image text](https://github.com/hedy-6/vue-admin-templete/md-images/vue-cli3-init.png)
+![vue cli 3.x 初始化项目](https://github.com/hedy-6/vue-admin-templete/blob/master/md-images/vue-cli3-init.png)
 
 
 

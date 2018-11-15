@@ -1,29 +1,18 @@
-# vue-admin-templete
+# vue-admin-templete 基于 Vue 的后台管理系统
 
-## Project setup
+## 开始
 ```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
+npm install // 安装包
+npm run serve // 在本地调试运行
+npm run build // 打包发布到生产环境
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## 背景
+### 使用vue cli 2.x 初始化项目
+![Image text](https://github.com/hedy-6/vue-admin-templete/md-images/vue-cli2-init.png)
 
-### Run your tests
-```
-npm run test
-```
+### 使用vue cli 3.x 初始化项目
+![Image text](https://github.com/hedy-6/vue-admin-templete/md-images/vue-cli3-init.png)
 
-### Lints and fixes files
-```
-npm run lint
-```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+
